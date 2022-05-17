@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import FormInput from "../form-input/form-input-component";
+
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
@@ -20,7 +22,7 @@ const SignUpForm = () => {
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
-  }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault(); //we don't want default behaviour to occur in form
@@ -58,7 +60,8 @@ const SignUpForm = () => {
       <h1>Sign up with your email and password</h1>
       <form onSubmit={handleSubmit}>
         <label>Display Name</label>
-        <input
+        <FormInput
+          label="Display Name"
           type="text"
           required
           onChange={handleChange}
@@ -67,7 +70,8 @@ const SignUpForm = () => {
         />
 
         <label>Email</label>
-        <input
+        <FormInput
+          label="Email"
           type="email"
           required
           onChange={handleChange}
@@ -76,7 +80,8 @@ const SignUpForm = () => {
         />
 
         <label>Password</label>
-        <input
+        <FormInput
+          label="Password"
           type="password"
           required
           onChange={handleChange}
@@ -85,7 +90,8 @@ const SignUpForm = () => {
         />
 
         <label>Confirm Password</label>
-        <input
+        <FormInput
+          label="Confirm Password"
           type="password"
           required
           onChange={handleChange}
