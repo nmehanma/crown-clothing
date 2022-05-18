@@ -19,8 +19,6 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
 
-
-
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
@@ -32,15 +30,26 @@ const SignInForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault(); //we don't want default behaviour to occur in form
-
+    console.log("HEERE");
     try {
       const response = await signInAuthUserWithEmailAndPassword(
         email,
         password
       );
-      console.log(response)
+      console.log(response);
       resetFormFields();
-    } catch (error) {}
+    } catch (error) {
+      switch (error.code) {
+        case "auth/wrong-password":
+          alert("Incorrect password for email");
+          break;
+        case "auth/user-not-found":
+          alert("No user associated with this email");
+          break;
+        default:
+          console.log(error);
+      }
+    }
   };
 
   const handleChange = (event) => {
@@ -72,11 +81,11 @@ const SignInForm = () => {
           name="password"
           value={password}
         />
-        <div class="buttons-container">
+        <div className="buttons-container">
           <Button buttonType="" type="submit">
             Sign In
           </Button>
-          <Button buttonType="google" onClick={signInWithGoogle}>
+          <Button type="button" buttonType="google" onClick={signInWithGoogle}>
             Google Sign In
           </Button>
         </div>
